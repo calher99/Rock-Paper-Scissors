@@ -1,25 +1,32 @@
 
 //Computer selects r/p/s
 
-    let randomNumber = Math.floor(100*Math.random());
-    let getComputerChoice = random => {
 
-        if (random<=33){
+let getComputerChoice = () => {
+    let randomNumber = Math.floor(100*Math.random());
+
+    if (randomNumber<=33){
             return "rock";
-        } else if (random<=66) {
+    } else if (randomNumber<=66) {
             return "paper";
-        }else {
+    }else {
             return "scissors";
-        }
     }
-    const computerChoice = getComputerChoice(randomNumber);
+}
 
 //User provides choice
 
-    let userChoice =  prompt("Please enter your choice:", "rock").toLowerCase();
+let getUserChoice = () => {
 
-console.log(computerChoice);
-console.log(userChoice);
+    let userChoice = prompt("Please enter your choice:", "rock").toLowerCase();
+
+    while (userChoice !== "scissors" && userChoice !== "rock" && userChoice !== "paper")  {
+        userChoice =  prompt("Please enter a valid choice:", "rock").toLowerCase();
+    }
+
+    return userChoice;
+} 
+
 
 //Computer checks algorithm who wins
 
@@ -55,4 +62,15 @@ let printWinner = value => {
     }
 }
 
-console.log(printWinner(winner(userChoice,computerChoice)));
+
+//Play repeatedly
+
+function playRound(){
+    const computerChoice = getComputerChoice();
+    const userChoice = getUserChoice();
+    console.log(printWinner(winner(userChoice,computerChoice)));
+}
+
+for (let i =0; i < 5 ; i++){
+    playRound();
+}
