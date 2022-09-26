@@ -40,12 +40,24 @@ let winner = (user1_result,user2_result) =>{
 function printWinner(value) {
     if (value === 1){
         updateUserCounter();
+        showWin()
     }else if (value === 0){
         updateComputerCounter();
+        showLost();
     } else{
         return;
     }
 }
+function showWin(){
+    const winText = document.querySelector('.message');
+    winText.classList.toggle('.fade');
+    winText.textContent="You won";
+}   
+function showLost(){
+    const lostText = document.querySelector('.message');
+    lostText.classList.toggle('.fade');
+    lostText.textContent="You lost";
+}  
 
 function updateUserCounter(){
     const result = document.querySelector('.user');
