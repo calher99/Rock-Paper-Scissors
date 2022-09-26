@@ -1,7 +1,4 @@
 
-//Computer selects r/p/s
-
-
 let getComputerChoice = () => {
     let randomNumber = Math.floor(100*Math.random());
 
@@ -12,20 +9,8 @@ let getComputerChoice = () => {
     }else {
             return "scissors";
     }
-}
+};
 
-//User provides choice
-
-let getUserChoice = () => {
-
-    let userChoice = prompt("Please enter your choice:", "rock").toLowerCase();
-
-    while (userChoice !== "scissors" && userChoice !== "rock" && userChoice !== "paper")  {
-        userChoice =  prompt("Please enter a valid choice:", "rock").toLowerCase();
-    }
-
-    return userChoice;
-} 
 
 
 //Computer checks algorithm who wins
@@ -52,25 +37,45 @@ let winner = (user1_result,user2_result) =>{
 
 //Provide answer
 
-let printWinner = value => {
+function printWinner(value) {
     if (value === 1){
-        return "You won!";
+        updateUserCounter();
     }else if (value === 0){
-        return "You lost";
+        updateComputerCounter();
     } else{
-        return "Draw";
+        return;
     }
 }
 
+function updateUserCounter(){
+    const result = document.querySelector('.user');
+    result.textContent= parseInt(result.textContent)+1;
 
-//Play repeatedly
-
-function playRound(){
-    const computerChoice = getComputerChoice();
-    const userChoice = getUserChoice();
-    console.log(printWinner(winner(userChoice,computerChoice)));
 }
 
+function updateComputerCounter(){
+    const result = document.querySelector('.computer');
+    result.textContent= parseInt(result.textContent)+1;
+}
+
+
+function startGame (e){
+    playRound(e.target.classList.value);
+};
+
+function playRound(userChoice){
+    const computerChoice = getComputerChoice();
+    printWinner(winner(userChoice,computerChoice));
+}
+
+
+const btns = document.querySelectorAll('button');
+btns.forEach (btn => btn.addEventListener('click',startGame));
+
+
+
+
+/*
 for (let i =0; i < 5 ; i++){
     playRound();
-}
+}*/
